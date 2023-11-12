@@ -1,9 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const routes = require("./routes/front/authRoutes");
+const authRoutes = require("./routes/front/authRoutes");
+const apiAuthRoutes = require("./routes/api/apiAuthRoutes");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
-const authMiddleware = require("./middleware/authMiddleware");
+const authMiddleware = require("./middleware/front/authMiddleware");
 
 //config the env variables
 require("dotenv").config();
@@ -34,7 +35,8 @@ app.get("/", (req, res) => res.render("home"));
 app.get("/smoothies", authMiddleware.requireAuth, (req, res) => {
   res.render("smoothies");
 });
-app.use(routes);
+app.use(authRoutes);
+app.use("/api", apiAuthRoutes);
 
 //cookies
 app.get("/set-cookie", (req, res) => {

@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const routes = require("./routes/authRoutes");
+const routes = require("./routes/front/authRoutes");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("./middleware/authMiddleware");

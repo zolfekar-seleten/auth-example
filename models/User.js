@@ -32,7 +32,15 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-//static method for login
+const maxAge = 3 * 24 * 60 * 60;
+
+//static methods
+userSchema.statics.createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: maxAge,
+  });
+};
+
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email: email });
   if (user) {
